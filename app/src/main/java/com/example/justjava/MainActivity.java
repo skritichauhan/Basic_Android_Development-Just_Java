@@ -2,11 +2,10 @@ package com.example.justjava;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.text.NumberFormat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,9 +14,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+
     public void submitOrder(View view) {
-       // display(2*quantity);
-       String pricecMessage="Free";
+        CheckBox WhippedCreamCheckBox=(CheckBox)findViewById(R.id.whipped_cream_checkbox);
+        boolean whipp=WhippedCreamCheckBox.isChecked();
+        int whip_price=0;
+        if(whipp)
+            whip_price=5;
+       String pricecMessage="Name: Sanskriti Chauhan"+"\nAdd Whipped Cream? "+whipp;
+       pricecMessage+="\nQuantity: "+quantity+"\nTotal: $"+(int)(quantity*2+whip_price)+"\nThank You!";
        displayMessage(pricecMessage);
     }
     int quantity=2;
@@ -26,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
         display(quantity);
     }
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.order_summary_text_view);
+        orderSummaryTextView.setText(message);
     }
 
     public void decrement(View view)
@@ -43,9 +49,5 @@ public class MainActivity extends AppCompatActivity {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
 
-    }
-    private void displayPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 }
